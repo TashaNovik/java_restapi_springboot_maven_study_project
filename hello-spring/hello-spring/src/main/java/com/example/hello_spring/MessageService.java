@@ -11,8 +11,8 @@ public class MessageService {
     }
 
     private void initializeSampleData() {
-        repository.save(new Message("Hello, Spring!"));
-        repository.save(new Message("In-memory storage works"));
+        repository.save(new Message("Hello, Spring!", "Admin"));
+        repository.save(new Message("In-memory storage works", "System"));
     }
 
     public Iterable<Message> getAllMessages() {

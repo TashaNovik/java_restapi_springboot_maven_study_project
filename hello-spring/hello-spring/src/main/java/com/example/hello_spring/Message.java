@@ -5,13 +5,15 @@ import java.util.Objects;
 public class Message {
     private Long id;
     private String content;
+    private String author;
 
     // Конструкторы
     public Message() {
     }
 
-    public Message(String content) {
+    public Message(String content, String author ) {
         this.content = content;
+        this.author = author;
     }
 
     public Long getId() {
@@ -30,17 +32,25 @@ public class Message {
         this.content = content;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-        return Objects.equals(id, message.id) && Objects.equals(content, message.content);
+        return Objects.equals(id, message.id) && Objects.equals(content, message.content) && Objects.equals(author, message.author);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, content);
+        return Objects.hash(id, content, author);
     }
 
 }
