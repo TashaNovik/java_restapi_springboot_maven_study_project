@@ -2,6 +2,8 @@ package com.example.hello_spring;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class MessageController {
@@ -19,6 +21,11 @@ public class MessageController {
     @GetMapping("/")
     public String getRoot() {
         return "Hello, World!";
+    }
+
+    @PostMapping("/messages")
+    public Message addMessage(@RequestBody Message message) {
+        return service.saveMessage(message);
     }
 
 }

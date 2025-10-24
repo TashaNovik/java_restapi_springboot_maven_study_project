@@ -18,4 +18,8 @@ public class MessageService {
     public Iterable<Message> getAllMessages() {
         return repository.findAll();
     }
+
+    public Message saveMessage(Message message) {
+        return repository.save(message);
+    }
 }
