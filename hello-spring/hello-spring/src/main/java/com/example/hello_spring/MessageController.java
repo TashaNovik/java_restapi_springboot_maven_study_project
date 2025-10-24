@@ -11,9 +11,14 @@ public class MessageController {
         this.service = service;
     }
 
-    @GetMapping("/api/messages")
+    @GetMapping("/messages")
     public Iterable<Message> getMessages() {
         return service.getAllMessages();
+    }
+
+    @GetMapping("/")
+    public String getRoot() {
+        return "Hello, World!";
     }
 
 }
