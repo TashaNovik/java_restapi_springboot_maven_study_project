@@ -1,6 +1,9 @@
 package com.example.hello_spring;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class MessageService {
     private final MessageRepository repository;
@@ -16,7 +19,11 @@ public class MessageService {
     }
 
     public Iterable<Message> getAllMessages() {
-        return repository.findAll();
+        List<Message> allMessages = repository.findAll();
+        if (allMessages.size() > 30) {
+            return allMessages.subList(0, 30);
+        }
+        return allMessages;
     }
 
     public Message saveMessage(Message message) {

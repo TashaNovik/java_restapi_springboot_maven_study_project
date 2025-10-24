@@ -26,7 +26,9 @@ public class MessageRepository {
     }
 
     public List<Message> findAll() {
-        return new ArrayList<>(storage.values());
+        List<Message> messages = new ArrayList<>(storage.values());
+        messages.sort((m1, m2) -> m2.getId().compareTo(m1.getId()));
+        return messages;
     }
 
     public void deleteById(Long id) {
