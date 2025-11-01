@@ -1,5 +1,6 @@
 package com.example.hello_spring.controller;
 
+import com.example.hello_spring.dto.GameResponse;
 import com.example.hello_spring.dto.MoveRequest;
 import com.example.hello_spring.model.GameSession;
 import com.example.hello_spring.service.GameService;
@@ -17,15 +18,15 @@ public class GameController {
     }
 
     @PostMapping("/start")
-    public ResponseEntity<GameSession> startNewGame() {
+    public ResponseEntity<GameResponse> startNewGame() {
         GameSession newGame = gameService.createNewGame();
-        return ResponseEntity.ok(newGame);
+        return ResponseEntity.ok(GameResponse.from(newGame));
     }
 
     @GetMapping("/{gameId}")
-    public ResponseEntity<GameSession> getGame(@PathVariable Long gameId) {
+    public ResponseEntity<GameResponse> getGame(@PathVariable Long gameId) {
         return gameService.getGameStatus(gameId)
-                .map(ResponseEntity::ok)
+                .map(gameSession -> ResponseEntity.ok(GameResponse.from(gameSession)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -33,9 +34,8 @@ public class GameController {
     public ResponseEntity<?> makeMove(@PathVariable Long gameId, @RequestBody MoveRequest moveRequest) {
         try {
             GameSession updatedGame = gameService.makeMove(gameId, moveRequest.getRow(), moveRequest.getCol());
-            return ResponseEntity.ok(updatedGame);
+            return ResponseEntity.ok(GameResponse.from(updatedGame));
         } catch (IllegalArgumentException | IllegalStateException e) {
-            // Возвращаем 400 Bad Request с сообщением об ошибке
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

@@ -4,7 +4,6 @@ import com.example.hello_spring.model.GameSession;
 import com.example.hello_spring.model.GameStatus;
 
 public class GameResponse {
-
     private Long gameId;
     private char[][] board;
     private char currentPlayerMark;
@@ -13,7 +12,6 @@ public class GameResponse {
     public GameResponse() {
     }
 
-    // Конструктор для фабричного метода остается, но он больше не единственный
     private GameResponse(Long gameId, char[][] board, char currentPlayerMark, GameStatus status) {
         this.gameId = gameId;
         this.board = board;
@@ -21,7 +19,7 @@ public class GameResponse {
         this.status = status;
     }
 
-    // 2. Убедитесь, что есть геттеры и добавьте сеттеры
+    // Геттеры и сеттеры
     public Long getGameId() { return gameId; }
     public void setGameId(Long gameId) { this.gameId = gameId; }
 
@@ -34,7 +32,7 @@ public class GameResponse {
     public GameStatus getStatus() { return status; }
     public void setStatus(GameStatus status) { this.status = status; }
 
-    // Фабричный метод остается без изменений
+    // Фабричный метод для удобного преобразования из GameSession
     public static GameResponse from(GameSession gameSession) {
         return new GameResponse(
                 gameSession.getId(),
